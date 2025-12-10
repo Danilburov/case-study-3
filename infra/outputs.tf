@@ -13,3 +13,10 @@ output "hr_db_endpoint" {
 output "hr_db_port" {
   value = aws_db_instance.hr.port
 }
+output "hr_db_endpoint" {
+  value = aws_db_instance.hr.address
+}
+
+output "hr_db_port" {
+  value = aws_db_instance.hr.port
+}
