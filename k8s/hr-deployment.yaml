@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: hr-app
-          image: <YOUR_ECR_ACCOUNT>.dkr.ecr.eu-central-1.amazonaws.com/hr-app:latest
+          image: 027354322246.dkr.ecr.eu-central-1.amazonaws.com/hr-app:latest
           ports:
             - containerPort: 5000
           env:
