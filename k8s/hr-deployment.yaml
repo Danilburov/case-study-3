@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hr-app
+  namespace: hr
+  labels:
+    app: hr-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hr-app
+  template:
+    metadata:
+      labels:
+        app: hr-app
+    spec:
+      containers:
+        - name: hr-app
+          image: <YOUR_ECR_ACCOUNT>.dkr.ecr.eu-central-1.amazonaws.com/hr-app:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: KEYCLOAK_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: KEYCLOAK_BASE_URL
+            - name: KEYCLOAK_REALM
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: KEYCLOAK_REALM
+            - name: KEYCLOAK_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: KEYCLOAK_CLIENT_ID
+            - name: HR_APP_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: HR_APP_BASE_URL
+            - name: KEYCLOAK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: hr-app-secret
+                  key: KEYCLOAK_CLIENT_SECRET
+            - name: FLASK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: hr-app-secret
+                  key: FLASK_SECRET_KEY
+            - name: DB_URL
+              value: >-
+                postgresql+psycopg2://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: DB_PORT
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: hr-app-config
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hr-app-secret
+                  key: DB_PASSWORD
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 30

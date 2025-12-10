@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hr-app-config
+  namespace: hr
+data:
+  KEYCLOAK_BASE_URL: "https://keycloak.example.com"
+  KEYCLOAK_REALM: "innovatech"
+  KEYCLOAK_CLIENT_ID: "hr-portal"
+  HR_APP_BASE_URL: "https://hr.example.com"
+
+  DB_HOST: "hr-db.example.rds.amazonaws.com"
+  DB_PORT: "5432"
+  DB_NAME: "hr_portal"
+  DB_USER: "hr_portal_user"
