@@ -344,7 +344,6 @@ resource "aws_security_group" "rds" {
 resource "aws_db_instance" "hr" {
   identifier = "${var.project}-hr-db"
   engine = "postgres"
-  engine_version = "15.5"
   instance_class = "db.t3.micro"
 
   allocated_storage = 20
