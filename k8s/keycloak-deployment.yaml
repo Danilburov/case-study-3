@@ -26,7 +26,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: keycloak-admin
-                  key: password
+                  key: KEYCLOAK_ADMIN_PASSWORD
           ports:
             - containerPort: 8080
           readinessProbe:
