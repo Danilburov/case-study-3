@@ -4,12 +4,15 @@ metadata:
   name: hr-app-config
   namespace: hr
 data:
-  KEYCLOAK_BASE_URL: "http://be9973e024d84484af9ee9ff74359d3-200237136.eu-central-1.elb.amazonaws.com"
+  # KEYCLOAK_BASE_URL: "http://keycloak.keycloak.svc.cluster.local"
+  KEYCLOAK_BASE_URL: "http://localhost:8081"
+  # KEYCLOAK_BASE_URL: "http://be9973e024d84484af9ee9ff74359d3-200237136.eu-central-1.elb.amazonaws.com"
   KEYCLOAK_REALM: "innovatech"
   KEYCLOAK_CLIENT_ID: "hr-portal"
-  HR_APP_BASE_URL: "http://hr-service.hr.svc.cluster.local"
+  HR_APP_BASE_URL: "http://localhost:8080"
+  # HR_APP_BASE_URL: "http://hr-service.hr.svc.cluster.local"
 
-  DB_HOST: "innovatech-lifecycle-hr-db.cfim6g2s27qj.***.rds.amazonaws.com"
+  DB_HOST: "innovatech-lifecycle-hr-db.cfim6g2s27qj.eu-central-1.rds.amazonaws.com"
   DB_PORT: "5432"
-  DB_NAME: "postgres"
-  DB_USER: "password"
+  DB_NAME: "hr_portal"
+  DB_USER: "postgres"
